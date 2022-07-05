@@ -13,11 +13,21 @@ class TodoItem extends React.Component {
     editing: false,
   };
 
+  componentWillUnmount() {
+    console.log("Cleaning up...")
+  }  
+
   editItems = () => {
     this.setState({
       editing: true,
     });
   };
+
+  updateItemDone = (e) => {
+    if (e.key === "Enter") {
+      this.setState({ editing: false })
+    }
+  }
   
   render() {
     const { completed, id, title } = this.props.todo;
@@ -57,6 +67,7 @@ class TodoItem extends React.Component {
         onChange={e => {
           this.props.updateItem(e.target.value, id)
         }}
+        onKeyDown={this.updateItemDone}
         />
     </li>
     );
