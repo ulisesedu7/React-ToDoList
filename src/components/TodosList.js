@@ -10,7 +10,8 @@ class TodosList extends React.Component {
             key={todo.id}
             todo={todo}
             changeDetectProps={this.props.changeDetectProps}
-            deleteBtnProps={this.props.deleteBtnProps} 
+            deleteBtnProps={this.props.deleteBtnProps}
+            updateItem={this.props.updateItem} 
           />
         ))}
       </ul>

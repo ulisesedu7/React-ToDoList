@@ -1,23 +1,25 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import TodosList from './TodosList';
 import Header from "./Header";
 import InputTodo from "./InputTodo";
+import ToDoStyles from '../ToDoStyles.css';
 
 class TodoContainer extends React.Component {
   state = {
     todos: [
       {
-        id: 1,
+        id: uuidv4(),
         title: "Setup development environment",
         completed: true
       },
       {
-        id: 2,
+        id: uuidv4(),
         title: "Develop website and add content",
         completed: false
       },
       {
-        id: 3,
+        id: uuidv4(),
         title: "Deploy to live server",
         completed: false
       }
@@ -50,25 +52,39 @@ class TodoContainer extends React.Component {
 
   addItem = (title) => {
     const newTodo = {
-      id: 4,
+      id: uuidv4(),
       title: title,
       completed: false
     };
     this.setState({
       todos: [...this.state.todos, newTodo]
     })
-  }
+  };
+
+  updateItem = (updatedTitle, id) => {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo.id === id) {
+          todo.title = updatedTitle
+        }
+        return todo;
+      }),
+    });
+  };
 
   render() {
     return (
-      <div>
+      <div className="main-container">
+        <div className="inner-container">
         <Header />
         <InputTodo addItemProps={this.addItem} />
         <TodosList
           todos={this.state.todos}
           changeDetectProps={this.changeDetect}
-          deleteBtnProps={this.deleteBtn} 
+          deleteBtnProps={this.deleteBtn}
+          updateItem={this.updateItem}
         />
+        </div>
       </div>
     );
   };
